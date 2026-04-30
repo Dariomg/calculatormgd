@@ -1,25 +1,27 @@
-ame: CI Calculatormgd
+name: CI Calculatormgd
+
 on:
-push:
-branches: [ "main" ]
-pull_request:
-branches: [ "main" ]
-permissions:
-contents: read
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
 jobs:
-build:
-runs-on: ubuntu-latest
-steps:
-- name: Checkout
-uses: actions/checkout@v6
-- name: Se configura JDK 25 (Temurin)
-uses: actions/setup-java@v5
-with:
-distribution: temurin
-java-version: "25"
-check-latest: true
-cache: gradle
-- name: Asegura que gradlew sea ejecutable
-run: chmod +x ./gradlew
-- name: Compilación
-run: ./gradlew compileJava –no-daemon
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configurar Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: temurin
+          java-version: "25"
+
+      - name: Permisos gradlew
+        run: chmod +x ./gradlew
+
+      - name: Compilar
+        run: ./gradlew compileJava --no-daemon
